@@ -1,0 +1,30 @@
+import orbalion.*
+describe "Test de Equipo Lumínico chekpoint 1" {
+
+  test "Un entrenador no puede tener tener un rol distinto a los autorizados por la FOZ." {
+    const martin = new Entrenadores(cantidadCiclosSolares = 3, estaEnSintonia = true, nivelPrecision= 3, rol = "Estratega Cuantico")
+    assert.notThat(martin.estaHomologado("Arquitecto"))
+  }
+  test "Un equipo lumínico con radiación > 5000 y sin tecnologías activas → su energía total es su energía base" {
+    const martin = new Entrenadores(cantidadCiclosSolares = 3, estaEnSintonia = true, nivelPrecision= 3,rol="Estratega Cuantico")
+    const losLuminicos = new Luminicos(nombre ="losLuminicos",nivelDeEnergiaBase = 4600 ,nivelRadiacion = 6000,entrenador = martin)
+    assert.equals(losLuminicos.energiaTotal(),4600)
+  }
+  test "Un equipo lumínico con radiación < 5000 → obtiene el bono del 10%" {
+    const juan = new Entrenadores(cantidadCiclosSolares = 5, estaEnSintonia = true, nivelPrecision= 2, rol="Arquitecto De Energia")
+    const losLuminicazos = new Luminicos(nombre = "losLuminicazos",nivelDeEnergiaBase = 3250,nivelRadiacion=4500,entrenador=juan)
+    assert.equals(losLuminicazos.energiaTotal(),3575)
+  }
+  test "Un equipo sintético con 6 módulos → aplica correctamente la penalización del 20%" {
+    const pablo = new Entrenadores(cantidadCiclosSolares=5,estaEnSintonia = true, nivelPrecision= 7,rol="Guia Mental")
+    const losSintatos = new Sinteticos(nombre="losSintatos",nivelDeEnergiaBase = 2500,entrenador=pablo,nivelProcesamientoCentral=4,cantidadModulos=6)
+    assert.equals(losSintatos.energiaTotal(),2000)
+  }
+  test "Un equipo sintético con 4 módulos y 2 tecnologías complementarias → suma correctamente los valores energéticos"{
+    const ignacio = new Entrenadores(cantidadCiclosSolares=12,estaEnSintonia=false,nivelPrecision=10,rol="Guia Mental")
+    const aplle = new Tecnologias(nombre="aplle",valorEnergetico=300,activa=true)
+    const aplletop = new Tecnologias(nombre="aplletop",valorEnergetico=700,activa=true)
+    const losSintatos = new Sinteticos(nombre="losSintanos",nivelDeEnergiaBase=2500,entrenador=ignacio,nivelProcesamientoCentral=5,cantidadModulos=4,tecnologiasComplementarias=[aplle,aplletop])
+    assert.equals(losSintatos.energiaTotal(),3500) 
+  }
+}
