@@ -64,3 +64,18 @@ describe"checkpoint 3"{
     assert.notThat(pilepanos.esDePrestigioUniversal())
   }
 }
+describe "checkpoint 4"{
+  test"Equipo etérico con 3 portales, fluctuación 80 y 2 tecnologías activas → es de prestigio universal"{
+    const vergil = new Entrenadores(cantidadCiclosSolares=15,estaEnSintonia=true,nivelPrecision=70,rol="GuiaMental")
+    const tecno = new Tecnologias(nombre="tecno",valorEnergetico=200,activa=true)
+    const pecno = new Tecnologias(nombre="pecno",valorEnergetico=400,activa=true)
+    const heteros = new Etericos(nombre="heteros",nivelDeEnergiaBase=2000,entrenador=vergil,nivelFluctuacionDimencional=80,cantidadPortalesAbiertos=3,tecnologiasComplementarias=[tecno,pecno])
+    assert.that(heteros.esDePrestigioUniversal())
+    assert.equals(heteros.energiaTotal(),2990)
+  }
+  test"Verificar que un equipo etérico que no cumple las condiciones **no** suma el 15%."{
+  const ramon = new Entrenadores(cantidadCiclosSolares=16,estaEnSintonia=true,nivelPrecision=90,rol="GuiaMental")
+  const feteros = new Etericos(nombre="feteros",nivelDeEnergiaBase=3000,entrenador=ramon,nivelFluctuacionDimencional=80,cantidadPortalesAbiertos=3)
+  assert.equals(feteros.energiaTotal(),3000)
+  }
+}

@@ -24,6 +24,8 @@ class Sinteticos inherits Equipos {
 class Etericos inherits Equipos {
     const nivelFluctuacionDimencional
     const cantidadPortalesAbiertos
+   override method esDePrestigioUniversal()=nivelFluctuacionDimencional > 75 && cantidadPortalesAbiertos >= 2 && tecnologiasComplementarias.filter({t=>t.estaActiva()}).size() >= 2
+   override method energiaTotal() = if(self.esDePrestigioUniversal())super()* 1.15 else super()
 }
 class Entrenadores {
     const cantidadCiclosSolares
