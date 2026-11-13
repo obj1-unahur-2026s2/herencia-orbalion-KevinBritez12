@@ -28,3 +28,17 @@ describe "Test de Equipo Lumínico chekpoint 1" {
     assert.equals(losSintatos.energiaTotal(),3500) 
   }
 }
+describe "checkpoint 2"{
+  test"Estratega cuántico con 12 ciclos y precisión 90 → es de élite galáctica"{
+    const mikel = new Entrenadores(cantidadCiclosSolares=12,estaEnSintonia=true,nivelPrecision=90,rol="Estratega Cuantico")
+    assert.that(mikel.esDeEliteGalactica())
+  }
+  test"Arquitecto de energía con 11 ciclos pero sin sintonía → no es de élite."{
+    const ramon = new Entrenadores(cantidadCiclosSolares=11,estaEnSintonia=false,nivelPrecision=80,rol="Arquitecto De Energia")
+    assert.notThat(ramon.esDeEliteGalactica())
+  }
+  test"Guía mental con 15 ciclos → siempre es de élite"{
+    const saul = new Entrenadores(cantidadCiclosSolares=15,estaEnSintonia=false,nivelPrecision=20,rol="Guia Mental")
+    assert.that(saul.esDeEliteGalactica())
+  }
+}

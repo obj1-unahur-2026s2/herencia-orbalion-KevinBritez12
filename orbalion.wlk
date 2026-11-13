@@ -26,8 +26,13 @@ class Entrenadores {
     var estaEnSintonia
     const nivelPrecision 
     var rol 
+    const condicionesAdicionales = []
     method estaHomologado(unRol) = ["Estratega Cuantico","Arquitecto De Energia","Guia Mental"].contains(unRol)
     method cambiarRol(nuevoRol) = if(not self.estaHomologado(nuevoRol)) self.error("Rol no homologado por la FOZ") else rol = nuevoRol
+    method esDeEliteGalactica() = cantidadCiclosSolares > 10 && self.cumpleSegunSuRol(rol)
+    method cumpleSegunSuRol(unRol) = if(unRol == "Estratega Cuantico") nivelPrecision > 80 else if(unRol=="Arquitecto De Energia") estaEnSintonia else if(unRol == "Guia Mental") condicionesAdicionales.size() == 0 else false
+    method estaEnSintonia()= estaEnSintonia
+    method cambiarEstado(nuevoEstado){estaEnSintonia = nuevoEstado }
 }
 class Tecnologias {
     const nombre
