@@ -5,17 +5,21 @@ class Equipos {
     var tecnologiasComplementarias = []
     method energiaTotal() = self.energiaBase() + tecnologiasComplementarias.filter({t=>t.estaActiva()}).sum({t=>t.valorEnergetico()})
     method energiaBase()=nivelDeEnergiaBase
+    method esDePrestigioUniversal()
 }
 class Luminicos inherits Equipos {
  var nivelRadiacion 
- var cristalesSolares=[] 
+ var cristalesSolares
  override method energiaTotal() = if(nivelRadiacion < 5000) super() * 1.1 else super()
+ override method esDePrestigioUniversal() = cristalesSolares >= 3 && entrenador.esDeEliteGalactica() && tecnologiasComplementarias.filter({t=>t.estaActiva()}).size()>=1
 }
 class Sinteticos inherits Equipos {
    const nivelProcesamientoCentral
    const cantidadModulos
-   method estanCertificados(){}
+   var estaCertificado = true
    override method energiaTotal() = if(cantidadModulos > 5) super() * 0.8 else super()
+   override method esDePrestigioUniversal() = estaCertificado && cantidadModulos > 3 && tecnologiasComplementarias.all({t=>t.estaActiva()})
+   method caambiarEstado(nuevoEstado){ estaCertificado = nuevoEstado}
 }
 class Etericos inherits Equipos {
     const nivelFluctuacionDimencional

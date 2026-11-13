@@ -7,12 +7,12 @@ describe "Test de Equipo Lumínico chekpoint 1" {
   }
   test "Un equipo lumínico con radiación > 5000 y sin tecnologías activas → su energía total es su energía base" {
     const martin = new Entrenadores(cantidadCiclosSolares = 3, estaEnSintonia = true, nivelPrecision= 3,rol="Estratega Cuantico")
-    const losLuminicos = new Luminicos(nombre ="losLuminicos",nivelDeEnergiaBase = 4600 ,nivelRadiacion = 6000,entrenador = martin)
+    const losLuminicos = new Luminicos(nombre ="losLuminicos",nivelDeEnergiaBase = 4600 ,nivelRadiacion = 6000,entrenador = martin,cristalesSolares=4)
     assert.equals(losLuminicos.energiaTotal(),4600)
   }
   test "Un equipo lumínico con radiación < 5000 → obtiene el bono del 10%" {
     const juan = new Entrenadores(cantidadCiclosSolares = 5, estaEnSintonia = true, nivelPrecision= 2, rol="Arquitecto De Energia")
-    const losLuminicazos = new Luminicos(nombre = "losLuminicazos",nivelDeEnergiaBase = 3250,nivelRadiacion=4500,entrenador=juan)
+    const losLuminicazos = new Luminicos(nombre = "losLuminicazos",nivelDeEnergiaBase = 3250,nivelRadiacion=4500,entrenador=juan,cristalesSolares=3)
     assert.equals(losLuminicazos.energiaTotal(),3575)
   }
   test "Un equipo sintético con 6 módulos → aplica correctamente la penalización del 20%" {
@@ -40,5 +40,27 @@ describe "checkpoint 2"{
   test"Guía mental con 15 ciclos → siempre es de élite"{
     const saul = new Entrenadores(cantidadCiclosSolares=15,estaEnSintonia=false,nivelPrecision=20,rol="Guia Mental")
     assert.that(saul.esDeEliteGalactica())
+  }
+}
+describe"checkpoint 3"{
+  test"Equipo lumínico con 3 cristales, entrenador de élite y una tecnología activa → es de prestigio universal"{
+    const pedrito = new Entrenadores(cantidadCiclosSolares=11,estaEnSintonia=true,nivelPrecision=30,rol="Guia Mental")
+    const pipilogia = new Tecnologias(nombre="pipilogia",valorEnergetico=500,activa=true)
+    const ratilogia = new Tecnologias(nombre="ratilogia",valorEnergetico=900,activa=false)
+    const paritogia = new Tecnologias(nombre="paritogia",valorEnergetico=1000,activa=false)
+    const laminicos = new Luminicos(nombre="laminicos",nivelDeEnergiaBase=4000,nivelRadiacion=4000,entrenador=pedrito,cristalesSolares=3,tecnologiasComplementarias=[pipilogia,ratilogia,paritogia])
+    assert.that(laminicos.esDePrestigioUniversal())
+  }
+  test "Equipo sintético certificado con 4 módulos y todas las tecnologías activas → es de prestigio"{
+    const mario = new Entrenadores(cantidadCiclosSolares=13,estaEnSintonia=true,nivelPrecision=50,rol="Guia Mental")
+    const ritilogia = new Tecnologias(nombre="ritilogia",valorEnergetico=1500,activa=true)
+    const fatilogia = new Tecnologias(nombre="fatilogia",valorEnergetico=5000,activa=true)
+    const pileticos = new Sinteticos(nombre="pileticos",nivelDeEnergiaBase=4000,entrenador=mario,nivelProcesamientoCentral=6,cantidadModulos=4,tecnologiasComplementarias=[ritilogia,fatilogia])
+    assert.that(pileticos.esDePrestigioUniversal())
+  }
+  test"un equipo luminico con 2 cristales solares y ninguna tecnologia no es de prestigio"{
+    const dante = new Entrenadores(cantidadCiclosSolares=13,estaEnSintonia=true,nivelPrecision=60,rol="Guia Mental")
+    const pilepanos = new Luminicos(nombre="pilepanos",nivelDeEnergiaBase=6500,nivelRadiacion=500,entrenador=dante,cristalesSolares=2)
+    assert.notThat(pilepanos.esDePrestigioUniversal())
   }
 }
